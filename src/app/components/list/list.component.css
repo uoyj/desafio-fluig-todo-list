@@ -1,0 +1,15 @@
+.app-list .list-wrapper ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.app-list .card-title{
+    color: #212529;
+    padding: 0.33rem;
+}
+
+.app-list .card-title:hover{
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    cursor: pointer;
+}

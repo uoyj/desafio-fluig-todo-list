@@ -1,0 +1,4 @@
+<label class="form-check-label">
+    <input class="checkbox" type="checkbox" [checked]="tarefaChecked()" (change)="tarefaCheckClick()" />
+    <span class="task-name" [ngClass]="tarefaCheckedClass()">{{tarefa.name}}</span>    
+</label>

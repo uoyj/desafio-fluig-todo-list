@@ -1,6 +1,6 @@
 <form class="entrar-form" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="alert alert-danger" role="alert" *ngIf="loginError">
-        {{loginHttpError.error.error}} - {{loginHttpError.error.error_description}}
+        Erro ao entrar.
     </div>
     <h3> Entrar </h3>
     <label for="inputEmail" class="sr-only">Email</label>

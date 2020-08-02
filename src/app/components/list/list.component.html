@@ -1,0 +1,29 @@
+<div class="card app-list">
+    <div class="card-body">
+        <div [ngSwitch]="editandoNome">
+            <div class="d-flex" *ngSwitchCase="true">
+                <input type="text" class="form-control" placeholder="Renomear lista" [(ngModel)]="editandoNomeValue" />
+                <button class="btn btn-light" (click)="editandoNomeClick()">Voltar</button>
+                <button class="btn btn-primary font-weight-bold" (click)="renomearLista()">Salvar</button>
+            </div>
+            <h4 class="card-title" *ngSwitchDefault (click)="editandoNomeClick()">{{lista.name}}</h4>
+        </div>
+
+        <p class="card-text">
+            <small class="text-muted">Criada em {{lista.createDate | date}}</small> <br />
+            <small class="text-muted">Última edição em {{lista.updateDate | date}}</small>
+        </p>
+
+        <div class="d-flex">
+            <input type="text" class="form-control" placeholder="Qual é a próxima tarefa?" [(ngModel)]="novaTarefa" />
+            <button class="btn btn-primary font-weight-bold" (click)="registrarTarefa()">+</button>
+        </div>
+        <div class="list-wrapper">
+            <ul class="d-flex flex-column-reverse">
+                <li class="app-task form-check" *ngFor="let ta of tarefas">
+                    <app-task [tarefa]="ta" [dicionarioStatus]="dicionarioStatus"></app-task>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

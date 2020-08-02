@@ -18,4 +18,10 @@ export class AuthService {
   isLogged(){
     return !!localStorage.getItem('token');
   }
+
+  getToken(){
+    if(this.isLogged()) return JSON.parse( localStorage.getItem('token') ).access_token;
+    else return null;
+  }
+
 }

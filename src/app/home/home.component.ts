@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   loginForm: FormGroup;
 
   loginError: boolean = false;
-  loginHttpError: HttpErrorResponse;
 
   constructor(private _formBuilder:FormBuilder, private _auth: AuthService,
               private _router: Router) { }
@@ -32,12 +31,11 @@ export class HomeComponent implements OnInit {
     let value = this.loginForm.value;
     this._auth.login(value.email, value.senha)
       .subscribe(token => {
-        console.log(token);
         localStorage.setItem('token', JSON.stringify(token));
         this._router.navigate(['/lists']);
-      }, error => {
+      }, error => {    
         this.loginError = true;
-        this.loginHttpError = error;
+        console.error(error);
       });
   }
 
