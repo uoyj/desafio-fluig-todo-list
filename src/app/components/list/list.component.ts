@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { List } from '../../classes/List.class';
 import { TasksAPIService } from '../../services/tasks-api.service';
+import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -10,16 +11,29 @@ import { TasksAPIService } from '../../services/tasks-api.service';
 export class ListComponent implements OnInit {
   @Input() lista: List;
   @Output() apagarLista = new EventEmitter();
+  renomearListaForm: FormGroup;
+  adicionarTarefaForm: FormGroup;
   tarefas = [];
   dicionarioStatus = {};
-  novaTarefa: string;
   editandoNome = false;
-  editandoNomeValue: string;
   modoApagar = false;
   
-  constructor(private _tasksApi: TasksAPIService) { }
+  constructor(private _formBuilder:FormBuilder, private _tasksApi: TasksAPIService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    
+    this.renomearListaForm = this._formBuilder.group({
+      nome: new FormControl(this.lista.name, [
+        Validators.required
+      ])
+    });
+
+    this.adicionarTarefaForm = this._formBuilder.group({
+      nome: new FormControl(null, [
+        Validators.required
+      ])
+    });
+
     this.recuperarStatus().then(statuses => {
       this.recuperarTarefas();
       this.statusesParse(statuses.items);
@@ -28,7 +42,9 @@ export class ListComponent implements OnInit {
   }
 
   registrarTarefa(){
-    this._tasksApi.registrarTarefa(this.lista.id, this.novaTarefa).subscribe(res => {
+    let value = this.adicionarTarefaForm.value;
+    this._tasksApi.registrarTarefa(this.lista.id, value.nome).subscribe(res => {
+      this.adicionarTarefaForm.reset();
       this.recuperarTarefas();
     }, err => {
       console.log(err)
@@ -48,15 +64,16 @@ export class ListComponent implements OnInit {
   }
 
   editandoNomeClick(){
-    if(this.editandoNome == false) this.editandoNomeValue = this.lista.name;
+    if(this.editandoNome == false) this.renomearListaForm.setValue({nome: this.lista.name });
     this.editandoNome = !this.editandoNome;
   }
 
   renomearLista(){
+    let value = this.renomearListaForm.value;
     this.editandoNome = false;
-    let patches = [{op:"replace", path:"/name", value: this.editandoNomeValue }];
+    let patches = [{op:"replace", path:"/name", value: value.nome }];
     this._tasksApi.editarLista(this.lista.id, patches).subscribe(res => {
-      this.lista.name = this.editandoNomeValue;
+      this.lista.name = value.nome;
     }, err => {
       console.log(err)
     });

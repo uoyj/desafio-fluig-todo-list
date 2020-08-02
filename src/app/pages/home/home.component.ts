@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
@@ -11,9 +10,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   loginForm: FormGroup;
-
   loginError: boolean = false;
 
   constructor(private _formBuilder:FormBuilder, private _auth: AuthService,
@@ -21,10 +18,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: [null],
-      senha: [null]
+      email: new FormControl(null, [
+        Validators.required
+      ]),
+      senha: new FormControl(null, [
+        Validators.required
+      ])
     });
-
   }
 
   login(){

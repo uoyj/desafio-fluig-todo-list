@@ -8,12 +8,12 @@
     </div>
     <div class="card-body">
         <div [ngSwitch]="editandoNome">
-            <div class="d-flex" *ngSwitchCase="true">
+            <form class="d-flex" *ngSwitchCase="true" [formGroup]="renomearListaForm" (ngSubmit)="renomearLista()">
                 <input type="text" class="form-control mr-1" placeholder="Renomear lista"
-                    [(ngModel)]="editandoNomeValue" />
-                <button class="btn btn-secondary btn-sm mr-1" (click)="editandoNomeClick()">Voltar</button>
-                <button class="btn btn-primary btn-sm font-weight-bold" (click)="renomearLista()">Salvar</button>
-            </div>
+                    formControlName="nome" />
+                <button class="btn btn-secondary btn-sm mr-1" type="button" (click)="editandoNomeClick()">Voltar</button>
+                <button class="btn btn-primary btn-sm font-weight-bold" type="sybmit" [disabled]="renomearListaForm.invalid">Salvar</button>
+            </form>
             <h4 class="card-title" *ngSwitchDefault (click)="editandoNomeClick()">{{lista.name}}</h4>
         </div>
 
@@ -23,10 +23,10 @@
             <p class="card-text col"><small class="text-muted">Última edição em {{lista.updateDate | date}}</small></p>
         </div>
 
-        <div class="d-flex">
-            <input type="text" class="form-control" placeholder="Qual é a próxima tarefa?" [(ngModel)]="novaTarefa" />
-            <button class="btn btn-sm  btn-primary font-weight-bold" (click)="registrarTarefa()">Adicionar</button>
-        </div>
+        <form class="d-flex" [formGroup]="adicionarTarefaForm" (ngSubmit)="registrarTarefa()">
+            <input type="text" class="form-control" placeholder="Qual é a próxima tarefa?" formControlName="nome" />
+            <button class="btn btn-sm  btn-primary font-weight-bold" [disabled]="adicionarTarefaForm.invalid">Adicionar</button>
+        </form>
         <div class="list-wrapper">
             <ul class="d-flex flex-column-reverse">
                 <li class="app-task" *ngFor="let ta of tarefas">

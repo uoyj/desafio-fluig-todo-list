@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TasksAPIService } from '../../services/tasks-api.service';
 import { List } from '../../classes/List.class';
 
@@ -8,19 +9,28 @@ import { List } from '../../classes/List.class';
   styleUrls: ['./lists.component.css']
 })
 export class ListsComponent implements OnInit {
-  novaLista: string;
-
-  constructor(private _tasksApi: TasksAPIService) { }
-
+  novaListaForm: FormGroup;
   listas:List[] = [];
 
+  constructor(private _formBuilder:FormBuilder, private _tasksApi: TasksAPIService) { }
+
+  
+
   ngOnInit(): void {
+    this.novaListaForm = this._formBuilder.group({
+      nome: new FormControl(null, [
+        Validators.required
+      ])
+    });
+
     this.recuperarListas();
   }
 
   registrarLista() {
-    this._tasksApi.registrarLista(this.novaLista).subscribe(res=>{
+    let value = this.novaListaForm.value;
+    this._tasksApi.registrarLista(value.nome).subscribe(res=>{
       this.recuperarListas();
+      this.novaListaForm.reset();
     }, error => {
       console.error(error);
     });
