@@ -11,9 +11,9 @@ import { AuthGuard } from './services/auth.guard';
 import { TokenInterceptService } from './services/token-intercept.service';
 import { TasksAPIService } from './services/tasks-api.service';
 
-import { AppHeaderComponent } from './app-header/app-header.component';
-import { HomeComponent } from './home/home.component';
-import { ListsComponent } from './lists/lists.component';
+import { AppHeaderComponent } from './pages/app-header/app-header.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ListsComponent } from './pages/lists/lists.component';
 import { ListComponent } from './components/list/list.component';
 import { TaskComponent } from './components/task/task.component';
 

@@ -1,4 +1,5 @@
 .entrar-form{
+    width: 100%;
     max-width: 576px;
-    margin: 0 auto;
+    margin: auto;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksAPIService } from '../services/tasks-api.service';
-import { List } from '../classes/List.class';
+import { TasksAPIService } from '../../services/tasks-api.service';
+import { List } from '../../classes/List.class';
 
 @Component({
   selector: 'app-lists',
