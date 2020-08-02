@@ -1,4 +1,16 @@
-<label class="form-check-label">
-    <input class="checkbox" type="checkbox" [checked]="tarefaChecked()" (change)="tarefaCheckClick()" />
-    <span class="task-name" [ngClass]="tarefaCheckedClass()">{{tarefa.name}}</span>    
-</label>
+<div class="app-task">    
+    <div [ngSwitch]="editandoTarefa"  class="task-name">
+        <div class="d-flex" *ngSwitchCase="true">
+            <input type="text" class="form-control mr-1" placeholder="Editar tarefa" [(ngModel)]="editandoTarefaValue" />
+            <button class="btn btn-outline-secondary mr-1" (click)="editandoTarefaClick()">Voltar</button>
+            <button class="btn btn-outline-primary font-weight-bold" (click)="editarTarefa()">Salvar</button>
+        </div>
+        <div class="d-flex" *ngSwitchDefault>
+            <label class="form-check-label mr-2">
+                <input class="checkbox" type="checkbox" [checked]="tarefaChecked()" (change)="tarefaCheckClick()" />
+            </label>
+            <div class="task-name-bind" (click)="editandoTarefaClick()" [ngClass]="tarefaCheckedClass()">{{tarefa.name}}</div>
+            <button type="button" class="btn btn-outline-danger excluir-btn float-right" (click)="excluir()">Excluir</button>
+        </div>
+    </div>   
+</div>

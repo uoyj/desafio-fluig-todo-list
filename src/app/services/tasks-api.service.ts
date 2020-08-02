@@ -27,7 +27,7 @@ export class TasksAPIService {
   }
 
   editarLista(listId:string, patches:any){
-    return this._http.put<any>(`${this.apiUrl}/lists/${listId}`, patches);
+    return this._http.patch<any>(`${this.apiUrl}/lists/${listId}`, patches);
   }
 
   apagarLista(listId:string){
@@ -47,7 +47,11 @@ export class TasksAPIService {
   }
 
   editarTarefa(listId:string, taskId:string, patches:any){
-    return this._http.put<any>(`${this.apiUrl}/lists/${listId}/tasks/${taskId}`, patches);
+    return this._http.patch<any>(`${this.apiUrl}/lists/${listId}/tasks/${taskId}`, patches);
+  }
+
+  apagarTarefa(listId:string, taskId:string){
+    return this._http.delete<any>(`${this.apiUrl}/lists/${listId}/tasks/${taskId}`);
   }
 
   abrirTarefa(listId:string, taskId:string){

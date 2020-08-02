@@ -1,3 +1,43 @@
-.task-name.checked{
+.app-task{
+    display: flex;
+    align-items: center;
+}
+
+.app-task .checkbox{
+    cursor: pointer;
+}
+
+.app-task .task-name:hover{
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    cursor: text;
+}
+
+.app-task .task-name{
+    flex-grow: 1;
+    padding: 0.1rem 0;
+    margin: 0.1rem 0;
+}
+
+.app-task .task-name .task-name-bind{
+    flex-grow: 1;
+}
+
+.app-task .task-name .task-name-bind.checked{
     text-decoration: line-through;
+}
+
+.app-task .task-name .btn{
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+.app-task .task-name .excluir-btn{
+    visibility: hidden;
+}
+
+.app-task .task-name:hover .excluir-btn{
+    visibility: visible;
 }

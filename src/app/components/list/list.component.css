@@ -23,3 +23,11 @@
     color: white;
     z-index: 2;
 }
+
+.app-list .excluir-btn{
+    visibility: hidden;
+}
+
+.app-list:hover .excluir-btn{
+    visibility: visible;
+}

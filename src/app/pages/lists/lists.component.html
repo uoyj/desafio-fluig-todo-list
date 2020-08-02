@@ -7,7 +7,7 @@
             (click)="registrarLista()">Criar Lista</button>
     </div>
 
-    <div class="row row-cols-2">
+    <div class="row row-cols-1 row-cols-md-2">
         <app-list class="col mb-3" *ngFor="let li of listas" [lista]="li" (apagarLista)="apagarLista($event)"></app-list>
     </div>
 </div>

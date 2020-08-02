@@ -54,7 +54,8 @@ export class ListComponent implements OnInit {
 
   renomearLista(){
     this.editandoNome = false;
-    this._tasksApi.editarLista(this.lista.id, {name: this.editandoNomeValue}).subscribe(res => {
+    let patches = [{op:"replace", path:"/name", value: this.editandoNomeValue }];
+    this._tasksApi.editarLista(this.lista.id, patches).subscribe(res => {
       this.lista.name = this.editandoNomeValue;
     }, err => {
       console.log(err)
@@ -81,6 +82,11 @@ export class ListComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+  }
+
+  excluirTarefa(taskId){
+    let index = this.tarefas.findIndex(li=> li.id == taskId);
+    this.tarefas.splice(index, 1);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Task } from '../../classes/Task.class';
 import { TasksAPIService } from 'src/app/services/tasks-api.service';
 
@@ -10,6 +10,9 @@ import { TasksAPIService } from 'src/app/services/tasks-api.service';
 export class TaskComponent implements OnInit {
   @Input() tarefa: Task;
   @Input() dicionarioStatus: any;
+  @Output() excluirTarefa = new EventEmitter();
+  editandoTarefa = false;
+  editandoTarefaValue: string;
   
   constructor(private _tasksApi: TasksAPIService) { }
 
@@ -57,6 +60,29 @@ export class TaskComponent implements OnInit {
     }, err => {
       console.error(err);
     })
+  }
+
+  excluir(){
+    this._tasksApi.apagarTarefa(this.tarefa.listId ,this.tarefa.id).subscribe(res => {
+      this.excluirTarefa.emit(this.tarefa.id);
+    }, err => {
+      console.error(err);
+    });
+  }
+
+  editandoTarefaClick(){
+    if(this.editandoTarefa == false) this.editandoTarefaValue = this.tarefa.name;
+    this.editandoTarefa = !this.editandoTarefa;
+  }
+
+  editarTarefa(){
+    this.editandoTarefa = false;
+    let patches = [{op:"replace", path:"/name", value: this.editandoTarefaValue }];
+    this._tasksApi.editarTarefa(this.tarefa.listId, this.tarefa.id, patches).subscribe(res => {
+      this.tarefa.name = this.editandoTarefaValue;
+    }, err => {
+      console.error(err)
+    });
   }
 
 }
