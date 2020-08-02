@@ -1,12 +1,13 @@
 <div class="container mt-3">
+    <small class="form-text text-muted">Nova Lista</small>
     <div class="d-flex mb-4">
-        <input type="text" class="form-control" placeholder="Insira um nome para a nova lista"
+        <input type="text" class="form-control" id="novaListaInput" placeholder="Insira um nome para a nova lista"
             [(ngModel)]="novaLista" />
         <button type="button" class="btn btn-primary font-weight-bold" style="min-width: 8rem;"
             (click)="registrarLista()">Criar Lista</button>
     </div>
 
     <div class="row row-cols-2">
-        <app-list class="col mb-3" *ngFor="let li of listas" [lista]="li"></app-list>
+        <app-list class="col mb-3" *ngFor="let li of listas" [lista]="li" (apagarLista)="apagarLista($event)"></app-list>
     </div>
 </div>

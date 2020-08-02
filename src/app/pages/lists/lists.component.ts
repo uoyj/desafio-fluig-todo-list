@@ -34,4 +34,9 @@ export class ListsComponent implements OnInit {
     });
   }
 
+  apagarLista(listId){
+    let index = this.listas.findIndex(li=> li.id == listId);
+    this.listas.splice(index, 1);
+  }
+
 }

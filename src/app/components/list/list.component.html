@@ -1,10 +1,17 @@
-<div class="card app-list">
+<div class="card app-list ">
+    <div class="modo-apagar" *ngIf="modoApagar">
+        <div class="m-auto">
+            <p class="card-text">Tem certeza que deseja apagar esta lista?</p>            
+            <button type="button" class="btn btn-secondary btn-sm mr-2" (click)="cancelarApagar()">Cancelar</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="confirmarApagar()">Apagar</button>
+        </div>
+    </div>
     <div class="card-body">
         <div [ngSwitch]="editandoNome">
             <div class="d-flex" *ngSwitchCase="true">
-                <input type="text" class="form-control" placeholder="Renomear lista" [(ngModel)]="editandoNomeValue" />
-                <button class="btn btn-light" (click)="editandoNomeClick()">Voltar</button>
-                <button class="btn btn-primary font-weight-bold" (click)="renomearLista()">Salvar</button>
+                <input type="text" class="form-control mr-1" placeholder="Renomear lista" [(ngModel)]="editandoNomeValue" />
+                <button class="btn btn-secondary btn-sm mr-1" (click)="editandoNomeClick()">Voltar</button>
+                <button class="btn btn-primary btn-sm font-weight-bold" (click)="renomearLista()">Salvar</button>
             </div>
             <h4 class="card-title" *ngSwitchDefault (click)="editandoNomeClick()">{{lista.name}}</h4>
         </div>
@@ -16,7 +23,7 @@
 
         <div class="d-flex">
             <input type="text" class="form-control" placeholder="Qual é a próxima tarefa?" [(ngModel)]="novaTarefa" />
-            <button class="btn btn-primary font-weight-bold" (click)="registrarTarefa()">+</button>
+            <button class="btn btn-sm  btn-primary font-weight-bold" (click)="registrarTarefa()">Adicionar</button>
         </div>
         <div class="list-wrapper">
             <ul class="d-flex flex-column-reverse">
@@ -25,5 +32,6 @@
                 </li>
             </ul>
         </div>
+        <button type="button" class="btn btn-sm btn-outline-danger float-right" (click)="apagar()">Apagar Lista</button>
     </div>
 </div>

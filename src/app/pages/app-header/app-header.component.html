@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand">Desafio Fluig To Do List</a>
-        <button class="btn btn-outline-light" type="button" *ngIf="_auth.isLogged()" (click)="_auth.logout()">Sair</button>
+        <button class="btn btn-outline-light" type="button" *ngIf="isLogged()" (click)="logout()">Sair</button>
     </div>
 </nav>

@@ -30,6 +30,10 @@ export class TasksAPIService {
     return this._http.put<any>(`${this.apiUrl}/lists/${listId}`, patches);
   }
 
+  apagarLista(listId:string){
+    return this._http.delete<any>(`${this.apiUrl}/lists/${listId}`);
+  }
+
   registrarTarefa(listId:string, nome:string){
     return this._http.post<any>(`${this.apiUrl}/lists/${listId}/tasks`, {name: nome});
   }

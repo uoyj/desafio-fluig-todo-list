@@ -13,4 +13,12 @@ export class AppHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isLogged(){
+    return this._auth.isLogged();
+  }
+
+  logout(){
+    return this._auth.logout();
+  }
+
 }

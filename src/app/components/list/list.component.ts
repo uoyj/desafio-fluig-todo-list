@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { List } from '../../classes/List.class';
 import { TasksAPIService } from '../../services/tasks-api.service';
 
@@ -9,11 +9,13 @@ import { TasksAPIService } from '../../services/tasks-api.service';
 })
 export class ListComponent implements OnInit {
   @Input() lista: List;
+  @Output() apagarLista = new EventEmitter();
   tarefas = [];
   dicionarioStatus = {};
   novaTarefa: string;
   editandoNome = false;
   editandoNomeValue: string;
+  modoApagar = false;
   
   constructor(private _tasksApi: TasksAPIService) { }
 
@@ -22,6 +24,7 @@ export class ListComponent implements OnInit {
       this.recuperarTarefas();
       this.statusesParse(statuses.items);
     });
+
   }
 
   registrarTarefa(){
@@ -61,6 +64,22 @@ export class ListComponent implements OnInit {
   statusesParse(statuses){
     statuses.forEach(s => {
       this.dicionarioStatus[s.id] = s;
+    });
+  }
+
+  apagar(){
+    this.modoApagar = true;
+  }
+
+  cancelarApagar(){
+    this.modoApagar = false;
+  }
+
+  confirmarApagar(){
+    this._tasksApi.apagarLista(this.lista.id).subscribe(res => {
+      this.apagarLista.emit(this.lista.id);
+    }, err => {
+      console.log(err);
     });
   }
 
